@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30907.101
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FPG", "FPG\FPG.csproj", "{079BDB5B-4ABD-42D2-AFD8-92C59C081B75}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{079BDB5B-4ABD-42D2-AFD8-92C59C081B75}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{079BDB5B-4ABD-42D2-AFD8-92C59C081B75}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{079BDB5B-4ABD-42D2-AFD8-92C59C081B75}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{079BDB5B-4ABD-42D2-AFD8-92C59C081B75}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {401D5B4A-32E3-4ACF-B0DD-E99ACB5DDE88}
+	EndGlobalSection
+EndGlobal

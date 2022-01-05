@@ -1,0 +1,7 @@
+System.Windows.Controls.TextBlock
+4
+8
+1
+1
+Mágus
+500

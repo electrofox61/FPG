@@ -1,0 +1,26 @@
+﻿<Window x:Class="FPG.Window6"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FPG"
+        mc:Ignorable="d"
+        Title="Window6" Height="542.283" Width="1159.619" Background="#FF134783" ResizeMode="CanMinimize">
+    <Grid>
+        <ListBox x:Name="lista" HorizontalAlignment="Left" Height="497" Margin="10,4,0,0" VerticalAlignment="Top" Width="249" FontSize="20" Background="#FF175399" BorderBrush="{x:Null}" Foreground="#FFFF9700">
+            <ListBoxItem Content="Harcos" BorderBrush="#FFD37D00" Selected="ListBoxItem_Selected"/>
+            <ListBoxItem Content="Mágus" BorderBrush="#FFD37D00" Selected="ListBoxItem_Selected_1"/>
+            <ListBoxItem Content="Druida" BorderBrush="#FFD37D00" Selected="ListBoxItem_Selected_2"/>
+            <ListBoxItem Content="Erő" BorderBrush="#FFD37D00" Selected="ListBoxItem_Selected_3"/>
+            <ListBoxItem Content="Védelem" BorderBrush="#FFD37D00" Selected="ListBoxItem_Selected_4"/>
+            <ListBoxItem Content="Mozgékonyság" BorderBrush="#FFD37D00" Selected="ListBoxItem_Selected_5"/>
+            <ListBoxItem Content="Intelligencia" BorderBrush="#FFD37D00" Selected="ListBoxItem_Selected_6"/>
+            <ListBoxItem Content="Szintek" BorderBrush="#FFD37D00" Selected="ListBoxItem_Selected_7"/>
+            <ListBoxItem Content="Harc" BorderBrush="#FFD37D00" Selected="ListBoxItem_Selected_8"/>
+            <ListBoxItem Content="Karakternézegető" BorderBrush="#FFD37D00" Selected="ListBoxItem_Selected_9"/>
+            <ListBoxItem Content="Karakterkészítés" BorderBrush="#FFD37D00" Selected="ListBoxItem_Selected_10"/>
+        </ListBox>
+        <Label x:Name="leiras" Content="" HorizontalAlignment="Left" Margin="281,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.067,0.75" Height="485" Width="861" Foreground="#FFFF9700" BorderBrush="#FF134783" BorderThickness="2" Background="#FF175399" FontSize="18"/>
+
+    </Grid>
+</Window>

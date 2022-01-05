@@ -1,0 +1,76 @@
+﻿<Window x:Name="Window2" x:Class="FPG.Window1"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FPG"
+        mc:Ignorable="d"
+        Title="Window1" Height="546.705" Width="800" ResizeMode="CanMinimize">
+    <Grid Background="#FF134783">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="143*"/>
+            <ColumnDefinition Width="531*"/>
+            <ColumnDefinition Width="118*"/>
+        </Grid.ColumnDefinitions>
+        <Label x:Name="pontok" Content="Pontok: 10" HorizontalAlignment="Left" Margin="20,93,0,0" VerticalAlignment="Top" Width="194" Height="71" FontSize="36" Foreground="#FFFF9700" Grid.ColumnSpan="2"/>
+        <Button x:Name="ero1" Content="-" HorizontalAlignment="Left" Height="40" Margin="45,164,0,0" VerticalAlignment="Top" Width="40" Click="ero1_Click" FontSize="24"/>
+        <Button x:Name="ero2" Content="+" HorizontalAlignment="Left" Height="40" Margin="220.009,164,0,0" VerticalAlignment="Top" Width="40" Click="ero2_Click" FontSize="24" Grid.Column="1"/>
+        <Button x:Name="ved1" Content="-" HorizontalAlignment="Left" Height="40" Margin="288.009,164,0,0" VerticalAlignment="Top" Width="40" Click="ved1_Click" FontSize="24" Grid.Column="1"/>
+        <Button x:Name="ved2" Content="+" HorizontalAlignment="Left" Height="40" Margin="38,164,0,0" VerticalAlignment="Top" Width="40" Click="ved2_Click" FontSize="24" Grid.Column="2"/>
+        <Button x:Name="moz1" Content="-" HorizontalAlignment="Left" Height="40" Margin="45,319,0,0" VerticalAlignment="Top" Width="40" Click="moz1_Click" FontSize="24"/>
+        <Button x:Name="moz2" Content="+" HorizontalAlignment="Left" Height="40" Margin="220.009,322,0,0" VerticalAlignment="Top" Width="40" Click="moz2_Click" FontSize="24" Grid.Column="1"/>
+        <Button x:Name="intl1" Content="-" HorizontalAlignment="Left" Height="40" Margin="288.009,319,0,0" VerticalAlignment="Top" Width="40" Click="intl1_Click" FontSize="24" Grid.Column="1"/>
+        <Button x:Name="intl2" Content="+" HorizontalAlignment="Left" Height="40" Margin="38,319,0,0" VerticalAlignment="Top" Width="40" Click="intl2_Click" FontSize="24" Grid.Column="2"/>
+        <Label x:Name="eroL" Content="Erő: 1" HorizontalAlignment="Left" Margin="105,164,0,0" VerticalAlignment="Top" Width="245" BorderThickness="2" Height="62" FontSize="24" Grid.ColumnSpan="2">
+            <Label.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FFFD3A00" Offset="0"/>
+                    <GradientStop Color="#FFFF7400" Offset="1"/>
+                </LinearGradientBrush>
+            </Label.Background>
+        </Label>
+        <Label x:Name="mozL" Content="Mozgékonyság: 1" HorizontalAlignment="Left" Margin="105,316,0,0" VerticalAlignment="Top" Width="245" BorderThickness="2" Height="61" FontSize="24" Grid.ColumnSpan="2">
+            <Label.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FFFD3A00" Offset="0"/>
+                    <GradientStop Color="#FFFF7400" Offset="1"/>
+                </LinearGradientBrush>
+            </Label.Background>
+        </Label>
+        <Label x:Name="vedL" Content="Védelem: 1" HorizontalAlignment="Left" Margin="339.009,164,0,0" VerticalAlignment="Top" Width="214" BorderThickness="2" Height="62" FontSize="24" Grid.ColumnSpan="2" Grid.Column="1">
+            <Label.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FFFD3A00" Offset="0"/>
+                    <GradientStop Color="#FFFF7400" Offset="1"/>
+                </LinearGradientBrush>
+            </Label.Background>
+        </Label>
+        <Label x:Name="intlL" Content="Intelligencia: 1" HorizontalAlignment="Left" Margin="339.009,319,0,0" VerticalAlignment="Top" Width="214" BorderThickness="2" Height="58" FontSize="24" Grid.ColumnSpan="2" Grid.Column="1">
+            <Label.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FFFD3A00" Offset="0"/>
+                    <GradientStop Color="#FFFF7400" Offset="1"/>
+                </LinearGradientBrush>
+            </Label.Background>
+        </Label>
+        <Button x:Name="tovabb" Content="Tovább" HorizontalAlignment="Left" Margin="366.009,25,0,0" VerticalAlignment="Top" Width="243" Grid.ColumnSpan="2" Height="56" FontSize="36" Foreground="#FF838383" Click="tovabb_Click" Grid.Column="1">
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FFFD3A00" Offset="0"/>
+                    <GradientStop Color="#FFFF7400" Offset="1"/>
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
+        <TextBlock x:Name="hiba" HorizontalAlignment="Left" Margin="20,395,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="93" Width="762" Grid.ColumnSpan="3" Foreground="Red" FontSize="20"><Run Text="Hiba"/><Run Text=": "/></TextBlock>
+        <Label Content="Nevezd el a rókádat:" HorizontalAlignment="Left" Margin="20,10,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Height="45" Width="288" FontSize="24" Foreground="#FFFF9700"/>
+        <TextBox x:Name="nev" HorizontalAlignment="Left" Height="45" Margin="23,60,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="267" Grid.ColumnSpan="2" Background="#FF2466B2" BorderBrush="{x:Null}" Foreground="#FFFF9700" FontSize="24" TextChanged="nev_TextChanged"/>
+        <Button x:Name="ujkarakter" Content="Új karakter" HorizontalAlignment="Left" Margin="366,86,0,0" VerticalAlignment="Top" Width="243" Grid.ColumnSpan="2" Height="56" FontSize="36" Foreground="#FF838383" Click="ujkarakter_Click" Grid.Column="1">
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FFFD3A00" Offset="0"/>
+                    <GradientStop Color="#FFFF7400" Offset="1"/>
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
+    </Grid>
+</Window>

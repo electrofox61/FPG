@@ -1,0 +1,7 @@
+System.Windows.Controls.TextBlock
+1
+12
+2
+2
+Harcos
+3500
