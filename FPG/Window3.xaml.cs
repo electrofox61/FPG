@@ -288,13 +288,12 @@ namespace FPG
             switch (klassz)
             {
                 case "Harcos":
-                    player.Source = new BitmapImage(new Uri("C:/Users/user/Downloads/FPG/FoxyWarrior.png", UriKind.Absolute));
+                    player.Source = new BitmapImage(new Uri("FoxyWarrior.png", UriKind.Absolute));
                     break;
                 case "Mágus":
-                    player.Source = new BitmapImage(new Uri("C:/Users/user/Downloads/FPG/FoxyMage.png", UriKind.Absolute));
+                    player.Source = new BitmapImage(new Uri("FoxyMage.png", UriKind.Absolute));
                     break;
                 case "Íjász":
-                    player.Source = new BitmapImage(new Uri("C:/Users/user/Downloads/FPG/FoxArcher.png", UriKind.Absolute));
                     break;
                 case "Druida":
                     break;
@@ -302,13 +301,12 @@ namespace FPG
             switch (eklassz)
             {
                 case "Harcos":
-                    ellenfelk.Source = new BitmapImage(new Uri("C:/Users/user/Downloads/FPG/WolfWarrior.png", UriKind.Absolute));
+                    ellenfelk.Source = new BitmapImage(new Uri("WolfWarrior.png", UriKind.Absolute));
                     break;
                 case "Mágus":
-                    ellenfelk.Source = new BitmapImage(new Uri("C:/Users/user/Downloads/FPG/WolfMage.png", UriKind.Absolute));
+                    ellenfelk.Source = new BitmapImage(new Uri("WolfMage.png", UriKind.Absolute));
                     break;
                 case "Íjász":
-                    ellenfelk.Source = new BitmapImage(new Uri("C:/Users/user/Downloads/FPG/FoxArcher.png", UriKind.Absolute));
                     break;
                 case "Druida":
                     break;

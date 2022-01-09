@@ -11,9 +11,9 @@
             <RowDefinition Height="528*"/>
             <RowDefinition Height="161*"/>
         </Grid.RowDefinitions>
-        <Image Source="C:\Users\user\source\repos\FPG\FPG\FPGCombatBackgroundSample.png" HorizontalAlignment="Left" Height="720" VerticalAlignment="Top" Width="1280" Grid.ColumnSpan="2" Margin="0,0,-8,-31" Grid.RowSpan="2"/>
-        <Image x:Name="ellenfelk" Source="C:\Users\user\Downloads\FPG\WolfWarrior.png" HorizontalAlignment="Left" Height="632" Margin="842,-28,-102,0" VerticalAlignment="Top" Width="534" Grid.RowSpan="2" Grid.ColumnSpan="2"/>
-        <Image x:Name="player" Source="C:\Users\user\Downloads\FPG\FoxyWarrior.png" HorizontalAlignment="Left" Height="629" Margin="-28,-25,0,0" VerticalAlignment="Top" Width="733" Grid.RowSpan="2"/>
+        <Image Source="FPGCombatBackgroundSample.png" HorizontalAlignment="Left" Height="720" VerticalAlignment="Top" Width="1280" Grid.ColumnSpan="2" Margin="0,0,-8,-31" Grid.RowSpan="2"/>
+        <Image x:Name="ellenfelk" Source="WolfWarrior.png" HorizontalAlignment="Left" Height="632" Margin="842,-28,-102,0" VerticalAlignment="Top" Width="534" Grid.RowSpan="2" Grid.ColumnSpan="2"/>
+        <Image x:Name="player" Source="FoxyWarrior.png" HorizontalAlignment="Left" Height="629" Margin="-28,-25,0,0" VerticalAlignment="Top" Width="733" Grid.RowSpan="2"/>
         <TextBlock x:Name="parbeszedT" HorizontalAlignment="Left" Margin="10,489,0,0" TextWrapping="Wrap" Text="Párbeszédek tesztelése lel" VerticalAlignment="Top" Grid.ColumnSpan="2" Height="180" Width="1252" Foreground="#FFC78801" FontSize="36" Grid.RowSpan="2"/>
         <Rectangle x:Name="texthatter" Grid.ColumnSpan="2" Fill="#FFE09C39" HorizontalAlignment="Left" Height="180" Margin="10,489,0,0" VerticalAlignment="Top" Width="1252" Opacity="0.5" Grid.RowSpan="2"/>
         <Button x:Name="tovabb" Content="Tovább" Grid.Column="1" HorizontalAlignment="Left" Margin="137,79,0,0" VerticalAlignment="Top" Width="200" Height="60" FontSize="36" Click="tovabb_Click" Foreground="#FFE67300" Background="{x:Null}" BorderBrush="{x:Null}" Grid.Row="1"/>

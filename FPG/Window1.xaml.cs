@@ -50,7 +50,7 @@ namespace FPG
                     klassz.Close();
                     swnev.Close();
                     karakter.Close();
-                    Window3 subWindow = new Window3();
+                    MainWindow subWindow = new MainWindow();
                     subWindow.Show();
                     Window2.Close();
                 }

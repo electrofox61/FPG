@@ -50,5 +50,10 @@ namespace FPG
             subWindow.Show();
             Window0.Close();
         }
+
+        private void kilep_Click(object sender, RoutedEventArgs e)
+        {
+            Window0.Close();
+        }
     }
 }

@@ -12,14 +12,11 @@
             <ColumnDefinition Width="298*"/>
         </Grid.ColumnDefinitions>
         <Image Source="FPGSample.png" HorizontalAlignment="Left" Height="677" VerticalAlignment="Top" Width="479" Margin="0,0,-4,0" Grid.ColumnSpan="2"/>
-        <Button x:Name="play" Content="Karakterkészítő" HorizontalAlignment="Left" Margin="153,483,0,0" VerticalAlignment="Top" Width="312" Height="86" Foreground="#FFFF9701" FontSize="36" BorderBrush="#FF134783" BorderThickness="0" RenderTransformOrigin="0.5,0.5" OpacityMask="#FF134783" Click="play_Click" Grid.ColumnSpan="2">
-            <Button.Background>
-                <SolidColorBrush Color="#FF134783"/>
-            </Button.Background>
-        </Button>
-        <Button x:Name="karakterek" Content="Karakternézegető" HorizontalAlignment="Left" Margin="153,569,0,0" VerticalAlignment="Top" Width="312" Height="86" Foreground="#FFFF9701" FontSize="36" BorderBrush="#FF134783" BorderThickness="0" RenderTransformOrigin="0.5,0.5" OpacityMask="#FF134783" Click="karakterek_Click" Grid.ColumnSpan="2" Background="#FF134783"/>
+        <Button x:Name="play" Content="Karakterkészítő" HorizontalAlignment="Left" Margin="153,440,0,0" VerticalAlignment="Top" Width="312" Height="86" Foreground="#FFFF9701" FontSize="36" BorderBrush="#FF134783" BorderThickness="0" RenderTransformOrigin="0.5,0.5" OpacityMask="#FF134783" Click="play_Click" Grid.ColumnSpan="2" Background="{x:Null}"/>
+        <Button x:Name="karakterek" Content="Karakternézegető" HorizontalAlignment="Left" Margin="153,531,0,0" VerticalAlignment="Top" Width="312" Height="86" Foreground="#FFFF9701" FontSize="36" BorderBrush="#FF134783" BorderThickness="0" RenderTransformOrigin="0.5,0.5" OpacityMask="#FF134783" Click="karakterek_Click" Grid.ColumnSpan="2" Background="{x:Null}"/>
         <Button x:Name="sugo" Content="Súgó" HorizontalAlignment="Left" Margin="149,10,0,0" VerticalAlignment="Top" Width="144" Height="63" Foreground="#FFFF9701" FontSize="36" BorderBrush="#FF134783" BorderThickness="0" RenderTransformOrigin="0.5,0.5" OpacityMask="#FF134783" Click="sugo_Click" Background="#FF134783" Grid.Column="1"/>
-        <Button x:Name="harc" Content="Harc" HorizontalAlignment="Left" Margin="153,392,0,0" VerticalAlignment="Top" Width="312" Height="86" Foreground="#FFFF9701" FontSize="36" BorderBrush="#FF134783" BorderThickness="0" RenderTransformOrigin="0.5,0.5" OpacityMask="#FF134783" Click="harc_Click" Grid.ColumnSpan="2" Background="{x:Null}"/>
+        <Button x:Name="harc" Content="Harc" HorizontalAlignment="Left" Margin="153,349,0,0" VerticalAlignment="Top" Width="312" Height="86" Foreground="#FFFF9701" FontSize="36" BorderBrush="#FF134783" BorderThickness="0" RenderTransformOrigin="0.5,0.5" OpacityMask="#FF134783" Click="harc_Click" Grid.ColumnSpan="2" Background="{x:Null}"/>
+        <Button x:Name="kilep" Content="Kilépés" HorizontalAlignment="Left" Margin="25,625,0,0" VerticalAlignment="Top" Width="204" Height="52" Foreground="#FFFF9701" FontSize="36" BorderBrush="#FF134783" BorderThickness="0" RenderTransformOrigin="0.5,0.5" OpacityMask="#FF134783" Background="#FF134783" Grid.Column="1" Click="kilep_Click"/>
 
     </Grid>
 </Window>

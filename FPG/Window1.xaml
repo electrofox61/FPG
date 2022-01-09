@@ -53,7 +53,7 @@
                 </LinearGradientBrush>
             </Label.Background>
         </Label>
-        <Button x:Name="tovabb" Content="Tovább" HorizontalAlignment="Left" Margin="366.009,25,0,0" VerticalAlignment="Top" Width="243" Grid.ColumnSpan="2" Height="56" FontSize="36" Foreground="#FF838383" Click="tovabb_Click" Grid.Column="1">
+        <Button x:Name="tovabb" Content="Mentés" HorizontalAlignment="Left" Margin="366.009,25,0,0" VerticalAlignment="Top" Width="243" Grid.ColumnSpan="2" Height="56" FontSize="36" Foreground="#FF838383" Click="tovabb_Click" Grid.Column="1">
             <Button.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="#FFFD3A00" Offset="0"/>
