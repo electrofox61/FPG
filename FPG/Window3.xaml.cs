@@ -21,7 +21,6 @@ namespace FPG
     public partial class Window3 : Window
     {
         //az alap adatok
-
         //fájlból kiolvasott
         string nev, ellnev;
         int ero, ved, moz, intl, xp, eero, eved, emoz, eintl, exp;
@@ -68,7 +67,7 @@ namespace FPG
         {
             if (ellhp <= 0)
             {
-                statolvasas();
+                
                 Gombtuntetes();
                 emhp.Width = 0;
                 emhp.Height = 0;
@@ -151,7 +150,7 @@ namespace FPG
             }
             else if (hp <= 0)
             {
-                statolvasas();
+                
                 Gombtuntetes();
                 emhp.Width = 0;
                 emhp.Height = 0;
@@ -292,7 +291,7 @@ namespace FPG
                     player.Source = new BitmapImage(new Uri("C:/Users/user/Downloads/FPG/FoxyWarrior.png", UriKind.Absolute));
                     break;
                 case "Mágus":
-                    player.Source = new BitmapImage(new Uri("C:/Users/user/Downloads/FPG/FoxMageRobot.png", UriKind.Absolute));
+                    player.Source = new BitmapImage(new Uri("C:/Users/user/Downloads/FPG/FoxyMage.png", UriKind.Absolute));
                     break;
                 case "Íjász":
                     player.Source = new BitmapImage(new Uri("C:/Users/user/Downloads/FPG/FoxArcher.png", UriKind.Absolute));
@@ -306,7 +305,7 @@ namespace FPG
                     ellenfelk.Source = new BitmapImage(new Uri("C:/Users/user/Downloads/FPG/WolfWarrior.png", UriKind.Absolute));
                     break;
                 case "Mágus":
-                    ellenfelk.Source = new BitmapImage(new Uri("C:/Users/user/Downloads/FPG/FoxMageRobot.png", UriKind.Absolute));
+                    ellenfelk.Source = new BitmapImage(new Uri("C:/Users/user/Downloads/FPG/WolfMage.png", UriKind.Absolute));
                     break;
                 case "Íjász":
                     ellenfelk.Source = new BitmapImage(new Uri("C:/Users/user/Downloads/FPG/FoxArcher.png", UriKind.Absolute));
@@ -317,9 +316,16 @@ namespace FPG
         }
         public void ellenfel()
         {
-            statolvasas();
-            Random r = new Random();
-            szandek = r.Next(1, 5);
+            if (Convert.ToString(szandek1.Content) == "")
+            {
+                Random r = new Random();
+                szandek = r.Next(1, 5);
+            }
+            else
+            {
+                szandek = Convert.ToInt32(szandek1.Content);
+                szandek1.Content = "";
+            }
             switch (szandek)
             {
                 case 1: //vedekezes
@@ -599,6 +605,8 @@ namespace FPG
                             }
                             else
                             {
+                                Random r = new Random();
+                                szandek1.Content = r.Next(1, 2);
                                 ellenfel();
                             }
                             break;
@@ -723,7 +731,7 @@ namespace FPG
                                     }
                                     else
                                     {
-                                        emhp.Text = $"+{Math.Abs(eihp- ellhp)}hp";
+                                        emhp.Text = $"+{Math.Abs(eihp - ellhp)}hp";
                                     }
                                 }
                                 mozgszam();
@@ -741,7 +749,7 @@ namespace FPG
                                     }
                                     else
                                     {
-                                        mhp.Text = $"+{Math.Abs(ihp- hp)}hp";
+                                        mhp.Text = $"+{Math.Abs(ihp - hp)}hp";
                                     }
                                 }
                                 ellhpT.Text = "Hp:" + ellhp + "/200";
@@ -762,6 +770,8 @@ namespace FPG
                             }
                             else
                             {
+                                Random r = new Random();
+                                szandek1.Content = r.Next(1, 2);
                                 ellenfel();
                             }
                             break;
@@ -784,7 +794,7 @@ namespace FPG
                                     }
                                     else
                                     {
-                                        emhp.Text = $"+{Math.Abs(eihp- ellhp)}hp";
+                                        emhp.Text = $"+{Math.Abs(eihp - ellhp)}hp";
                                     }
                                 }
                                 mozgszam();
@@ -802,7 +812,7 @@ namespace FPG
                                     }
                                     else
                                     {
-                                        mhp.Text = $"+{Math.Abs(ihp- hp)}hp";
+                                        mhp.Text = $"+{Math.Abs(ihp - hp)}hp";
                                     }
                                 }
                                 eeges += 2;
@@ -834,6 +844,8 @@ namespace FPG
                             }
                             else
                             {
+                                Random r = new Random();
+                                szandek1.Content = r.Next(1, 3);
                                 ellenfel();
                             }
                             break;
@@ -860,7 +872,7 @@ namespace FPG
                                         }
                                         else
                                         {
-                                            emhp.Text = $"+{Math.Abs(eihp- ellhp)}hp";
+                                            emhp.Text = $"+{Math.Abs(eihp - ellhp)}hp";
                                         }
                                     }
                                     mozgszam();
@@ -878,7 +890,7 @@ namespace FPG
                                         }
                                         else
                                         {
-                                            mhp.Text = $"+{Math.Abs(ihp- hp)}hp";
+                                            mhp.Text = $"+{Math.Abs(ihp - hp)}hp";
                                         }
                                     }
                                     eroot += 1;
@@ -917,7 +929,7 @@ namespace FPG
                                         }
                                         else
                                         {
-                                            emhp.Text = $"+{Math.Abs(eihp- ellhp)}hp";
+                                            emhp.Text = $"+{Math.Abs(eihp - ellhp)}hp";
                                         }
                                     }
                                     iemana = emana;
@@ -939,6 +951,8 @@ namespace FPG
                             }
                             else
                             {
+                                Random r = new Random();
+                                szandek1.Content = r.Next(1, 3);
                                 ellenfel();
                             }
                             break;
@@ -966,7 +980,7 @@ namespace FPG
                                     }
                                     else
                                     {
-                                        emhp.Text = $"+{Math.Abs(eihp- ellhp)}hp";
+                                        emhp.Text = $"+{Math.Abs(eihp - ellhp)}hp";
                                     }
                                 }
                                 mozgszam();
@@ -984,7 +998,7 @@ namespace FPG
                                     }
                                     else
                                     {
-                                        mhp.Text = $"+{Math.Abs(ihp- hp)}hp";
+                                        mhp.Text = $"+{Math.Abs(ihp - hp)}hp";
                                     }
                                 }
                                 ellhpT.Text = "Hp:" + ellhp + "/200";
@@ -1005,6 +1019,8 @@ namespace FPG
                             }
                             else
                             {
+                                Random r = new Random();
+                                szandek1.Content = r.Next(1,3);
                                 ellenfel();
                             }
                             break;
@@ -1027,7 +1043,7 @@ namespace FPG
                                     }
                                     else
                                     {
-                                        emhp.Text = $"+{Math.Abs(eihp- ellhp)}hp";
+                                        emhp.Text = $"+{Math.Abs(eihp - ellhp)}hp";
                                     }
                                 }
                                 mozgszam();
@@ -1045,7 +1061,7 @@ namespace FPG
                                     }
                                     else
                                     {
-                                        mhp.Text = $"+{Math.Abs(ihp- hp)}hp";
+                                        mhp.Text = $"+{Math.Abs(ihp - hp)}hp";
                                     }
                                 }
                                 if (eeges > 0)
@@ -1075,6 +1091,8 @@ namespace FPG
                             }
                             else
                             {
+                                Random r = new Random();
+                                szandek1.Content = r.Next(1, 2);
                                 ellenfel();
                             }
                             break;
@@ -1101,7 +1119,7 @@ namespace FPG
                                         }
                                         else
                                         {
-                                            emhp.Text = $"+{Math.Abs(eihp- ellhp)}hp";
+                                            emhp.Text = $"+{Math.Abs(eihp - ellhp)}hp";
                                         }
                                     }
                                     eroot += 1;
@@ -1140,7 +1158,7 @@ namespace FPG
                                         }
                                         else
                                         {
-                                            emhp.Text = $"+{Math.Abs(eihp- ellhp)}hp";
+                                            emhp.Text = $"+{Math.Abs(eihp - ellhp)}hp";
                                         }
                                     }
                                     iemana = emana;
@@ -1162,6 +1180,8 @@ namespace FPG
                             }
                             else
                             {
+                                Random r = new Random();
+                                szandek1.Content = r.Next(1, 3);
                                 ellenfel();
                             }
                             break;
@@ -1184,24 +1204,32 @@ namespace FPG
         }
         public void statolvasas()
         {
-            StreamReader stat = new StreamReader(nev + ".txt");
-            nev = stat.ReadLine();
-            ero = Convert.ToInt32(stat.ReadLine());
-            ved = Convert.ToInt32(stat.ReadLine());
-            moz = Convert.ToInt32(stat.ReadLine());
-            intl = Convert.ToInt32(stat.ReadLine());
-            klassz = stat.ReadLine();
-            xp = Convert.ToInt32(stat.ReadLine());
-            stat.Close();
-            StreamReader estat = new StreamReader(ellnev + ".txt");
-            ellnev = estat.ReadLine();
-            eero = Convert.ToInt32(estat.ReadLine());
-            eved = Convert.ToInt32(estat.ReadLine());
-            emoz = Convert.ToInt32(estat.ReadLine());
-            eintl = Convert.ToInt32(estat.ReadLine());
-            eklassz = estat.ReadLine();
-            exp = Convert.ToInt32(estat.ReadLine());
-            estat.Close();
+            try
+            {
+                StreamReader stats = new StreamReader(nev + ".txt");
+                nev = stats.ReadLine();
+                ero = Convert.ToInt32(stats.ReadLine());
+                ved = Convert.ToInt32(stats.ReadLine());
+                moz = Convert.ToInt32(stats.ReadLine());
+                intl = Convert.ToInt32(stats.ReadLine());
+                klassz = stats.ReadLine() ;
+                xp = Convert.ToInt32(stats.ReadLine());
+                stats.Close();
+                StreamReader estat = new StreamReader(ellnev + ".txt");
+                ellnev = estat.ReadLine();
+                eero = Convert.ToInt32(estat.ReadLine());
+                eved = Convert.ToInt32(estat.ReadLine());
+                emoz = Convert.ToInt32(estat.ReadLine());
+                eintl = Convert.ToInt32(estat.ReadLine());
+                eklassz = estat.ReadLine();
+                exp = Convert.ToInt32(estat.ReadLine());
+                estat.Close();
+            }
+            catch (System.StackOverflowException)
+            {
+
+                MessageBox.Show("wtf");
+            }
         }
         public void harckezdet()
         {
@@ -1294,7 +1322,7 @@ namespace FPG
                     hibaT.Text = "Hiba:";
                     if (i < 1)
                     {
-                        statolvasas();
+                        
                         kepek();
                         nevparbeszed();
                     }
@@ -1328,7 +1356,7 @@ namespace FPG
         }
         private void vedekezes_Click(object sender, RoutedEventArgs e)
         {
-            statolvasas();
+            
             switch (klassz)
             {
                 case "Harcos":
@@ -1396,7 +1424,7 @@ namespace FPG
         }
         private void tamadas_Click(object sender, RoutedEventArgs e)
         {
-            statolvasas();
+            
             if (klassz=="Harcos")
             {
                 sebzes = 10 + ero;
@@ -1468,7 +1496,7 @@ namespace FPG
         }
         private void mtamadas_Click(object sender, RoutedEventArgs e)
         {
-            statolvasas();
+            
             if (klassz == "Harcos" && duh >= 30)
             {
                 sebzes = 20 + ero;
@@ -1540,7 +1568,7 @@ namespace FPG
         }
         private void htamadas_Click(object sender, RoutedEventArgs e)
         {
-            statolvasas();
+            
             if (klassz == "Harcos" && duh >= 60)
             {
                 sebzes = 50 + ero;
