@@ -285,30 +285,33 @@ namespace FPG
         }
         public void kepek()
         {
+            statolvasas();
             switch (klassz)
             {
                 case "Harcos":
-                    player.Source = new BitmapImage(new Uri("FoxyWarrior.png", UriKind.Absolute));
+                    player.Source = new BitmapImage(new Uri("FoxyWarrior.png", UriKind.Relative));
                     break;
                 case "Mágus":
-                    player.Source = new BitmapImage(new Uri("FoxyMage.png", UriKind.Absolute));
+                    player.Source = new BitmapImage(new Uri("FoxyMage.png", UriKind.Relative));
                     break;
                 case "Íjász":
                     break;
                 case "Druida":
+                    player.Source = new BitmapImage(new Uri("FoxyDruid.png", UriKind.Relative));
                     break;
             }
             switch (eklassz)
             {
                 case "Harcos":
-                    ellenfelk.Source = new BitmapImage(new Uri("WolfWarrior.png", UriKind.Absolute));
+                    ellenfelk.Source = new BitmapImage(new Uri("WolfWarrior.png", UriKind.Relative));
                     break;
                 case "Mágus":
-                    ellenfelk.Source = new BitmapImage(new Uri("WolfMage.png", UriKind.Absolute));
+                    ellenfelk.Source = new BitmapImage(new Uri("WolfMage.png", UriKind.Relative));
                     break;
                 case "Íjász":
                     break;
                 case "Druida":
+                    ellenfelk.Source = new BitmapImage(new Uri("WolfDruid.png", UriKind.Relative));
                     break;
             }
         }
@@ -330,7 +333,7 @@ namespace FPG
                     switch (eklassz)
                     {
                         case "Harcos":
-                            intention.Text = "vedekezes";
+                            intention.Text = "Védekezés";
                             emozgszam();
                             if (edodged == false)
                             {
@@ -366,7 +369,7 @@ namespace FPG
                             GyozelemVereseg();
                             break;
                         case "Mágus":
-                            intention.Text = "vedekezes";
+                            intention.Text = "Buborék";
                             emozgszam();
                             if (edodged == false)
                             {
@@ -395,13 +398,11 @@ namespace FPG
                             GyozelemVereseg();
                             break;
                         case "Íjász":
-                            intention.Text = "vedekezes";
-                            ellhp += 10 + eved;
                             break;
                         case "Druida":
                             if (root == 0)
                             {
-                                intention.Text = "vedekezes";
+                                intention.Text = "Teknőspáncél";
                                 emozgszam();
                                 if (edodged == false)
                                 {
@@ -440,7 +441,7 @@ namespace FPG
                             else
                             {
                                 root -= 1;
-                                intention.Text = "vedekezes";
+                                intention.Text = "Teknőspáncél";
                                 emozgszam();
                                 if (edodged == false)
                                 {
@@ -482,7 +483,7 @@ namespace FPG
                     switch (eklassz)
                     {
                         case "Harcos":
-                            intention.Text = "tamadas";
+                            intention.Text = "Sima Támadás";
                             emozgszam();
                             if (edodged == false)
                             {
@@ -538,7 +539,7 @@ namespace FPG
                         case "Mágus":
                             if (emana >= 15)
                             {
-                                intention.Text = "tamadas";
+                                intention.Text = "Tűzgolyó";
                                 emozgszam();
                                 if (edodged == false)
                                 {
@@ -613,7 +614,7 @@ namespace FPG
                         case "Druida":
                             if (root == 0)
                             {
-                                intention.Text = "tamadas";
+                                intention.Text = "Karmolás";
                                 emozgszam();
                                 if (edodged == false)
                                 {
@@ -669,7 +670,7 @@ namespace FPG
                             else
                             {
                                 root -= 1;
-                                intention.Text = "tamadas";
+                                intention.Text = "Karmolás";
                                 emozgszam();
                                 if (edodged == false)
                                 {
@@ -711,7 +712,7 @@ namespace FPG
                     switch (eklassz)
                     {
                         case "Harcos":
-                            intention.Text = "mtamadas";
+                            intention.Text = "Lefejelés";
                             if (eduh >= 30)
                             {
                                 emozgszam();
@@ -776,7 +777,7 @@ namespace FPG
                         case "Mágus":
                             if (emana >= 15)
                             {
-                                intention.Text = "mtamadas";
+                                intention.Text = "Jégcsap";
                                 emozgszam();
                                 if (edodged == false)
                                 {
@@ -854,7 +855,7 @@ namespace FPG
                             {
                                 if (root == 0)
                                 {
-                                    intention.Text = "mtamadas";
+                                    intention.Text = "Gyökércsapda";
                                     emozgszam();
                                     if (edodged == false)
                                     {
@@ -911,7 +912,7 @@ namespace FPG
                                 else
                                 {
                                     root -= 1;
-                                    intention.Text = "mtamadas";
+                                    intention.Text = "Gyökércsapda";
                                     emozgszam();
                                     if (edodged == false)
                                     {
@@ -960,7 +961,7 @@ namespace FPG
                     switch (eklassz)
                     {
                         case "Harcos":
-                            intention.Text = "htamadas";
+                            intention.Text = "Rókapörgés";
                             if (eduh >= 60)
                             {
                                 emozgszam();
@@ -1025,7 +1026,7 @@ namespace FPG
                         case "Mágus":
                             if (emana >= 40)
                             {
-                                intention.Text = "htamadas";
+                                intention.Text = "Robbanás";
                                 emozgszam();
                                 if (edodged == false)
                                 {
@@ -1101,7 +1102,7 @@ namespace FPG
                             {
                                 if (root == 0)
                                 {
-                                    intention.Text = "htamadas";
+                                    intention.Text = "Élet növénye";
                                     emozgszam();
                                     if (edodged == false)
                                     {
@@ -1140,7 +1141,7 @@ namespace FPG
                                 else
                                 {
                                     root -= 1;
-                                    intention.Text = "htamadas";
+                                    intention.Text = "Élet növénye";
                                     emozgszam();
                                     if (edodged == false)
                                     {
@@ -1318,12 +1319,12 @@ namespace FPG
                 try
                 {
                     hibaT.Text = "Hiba:";
-                    if (i < 1)
-                    {
+                    //if (i < 1)
+                    //{
                         
-                        kepek();
-                        nevparbeszed();
-                    }
+                    kepek();
+                    nevparbeszed();
+                    //}
                     if (harcvege == true)
                     {
                         MainWindow subWindow = new MainWindow();
@@ -1331,7 +1332,7 @@ namespace FPG
                         Window1.Close();
                     }
                     //A párbeszéd beolvasása
-                    StreamReader parbeszedo = new StreamReader("parbeszed.txt");
+                    /*StreamReader parbeszedo = new StreamReader("parbeszed.txt");
                     while (!parbeszedo.EndOfStream)
                     {
                         string sor = parbeszedo.ReadLine();
@@ -1339,12 +1340,12 @@ namespace FPG
                     }
                     parbeszedo.Close();
                     parbeszedT.Text = "" + parbeszed[i];
-                    i++;
+                    i++;*/
                     //3 Párbeszéd után elkezdődik a harc
-                    if (i > 4)
-                    {
-                        harckezdet();
-                    }
+                    //if (i > 4)
+                    //{
+                    harckezdet();
+                    //}
                 }
                 catch (FileNotFoundException)
                 {

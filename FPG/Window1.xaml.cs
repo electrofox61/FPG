@@ -183,7 +183,7 @@ namespace FPG
                     klassz.Close();
                     swnev.Close();
                     karakter.Close();
-                    MainWindow subWindow = new MainWindow();
+                    Window1 subWindow = new Window1();
                     subWindow.Show();
                     Window2.Close();
                 }
