@@ -11,7 +11,7 @@
             <RowDefinition Height="528*"/>
             <RowDefinition Height="161*"/>
         </Grid.RowDefinitions>
-        <Image Source="FPGCombatBackgroundSample.png" HorizontalAlignment="Left" Height="720" VerticalAlignment="Top" Width="1280" Grid.ColumnSpan="2" Margin="0,0,-8,-31" Grid.RowSpan="2"/>
+        <Image Source="FPGCombatBackgroundSample2.png" HorizontalAlignment="Left" Height="720" VerticalAlignment="Top" Width="1280" Grid.ColumnSpan="2" Margin="0,0,-8,-31" Grid.RowSpan="2"/>
         <Image x:Name="ellenfelk" Source="WolfWarrior.png" HorizontalAlignment="Left" Height="632" Margin="842,-28,-102,0" VerticalAlignment="Top" Width="534" Grid.RowSpan="2" Grid.ColumnSpan="2"/>
         <Image x:Name="player" Source="FoxyWarrior.png" HorizontalAlignment="Left" Height="629" Margin="-28,-25,0,0" VerticalAlignment="Top" Width="733" Grid.RowSpan="2"/>
         <TextBlock x:Name="parbeszedT" HorizontalAlignment="Left" Margin="10,489,0,0" TextWrapping="Wrap" Text="Válaszd ki mit akarsz tenni!" VerticalAlignment="Top" Grid.ColumnSpan="2" Height="180" Width="1252" Foreground="#FFC78801" FontSize="36" Grid.RowSpan="2"/>

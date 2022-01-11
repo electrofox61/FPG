@@ -8,10 +8,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-<<<<<<< Updated upstream
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("foxydruid.png")]
-=======
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("wolfdruid.png")]
->>>>>>> Stashed changes
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("fpgcombatbackgroundsample2.png")]
 
 

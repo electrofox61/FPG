@@ -186,5 +186,15 @@
   <ItemGroup>
     <Resource Include="WolfDruid.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="FPGSample2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="FPGCombatBackgroundSample2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
