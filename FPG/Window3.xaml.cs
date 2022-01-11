@@ -46,22 +46,15 @@ namespace FPG
         }
         public void Gombtuntetes()
         {
-            vedekezes.Width = 0;
-            vedekezes.Height = 0;
-            tamadas.Width = 0;
-            tamadas.Height = 0;
-            mtamadas.Width = 0;
-            mtamadas.Height = 0;
-            htamadas.Width = 0;
-            htamadas.Height = 0;
-            hpT.Width = 0;
-            hpT.Height = 0;
-            ellhpT.Width = 0;
-            ellhpT.Height = 0;
-            manaduh.Width = 0;
-            manaduh.Height = 0;
-            emanaduh.Width = 0;
-            emanaduh.Height = 0;
+            vedekezes.Visibility = Visibility.Collapsed;
+            vedekezes.Visibility = Visibility.Collapsed;
+            tamadas.Visibility = Visibility.Collapsed;
+            mtamadas.Visibility = Visibility.Collapsed;
+            htamadas.Visibility = Visibility.Collapsed;
+            hpT.Visibility = Visibility.Collapsed;
+            ellhpT.Visibility = Visibility.Collapsed;
+            manaduh.Visibility = Visibility.Collapsed;
+            emanaduh.Visibility = Visibility.Collapsed;
         }
         public void GyozelemVereseg()
         {
@@ -69,18 +62,13 @@ namespace FPG
             {
                 
                 Gombtuntetes();
-                emhp.Width = 0;
-                emhp.Height = 0;
-                mhp.Width = 0;
-                mhp.Height = 0;
-                mmanaduh.Width = 0;
-                mmanaduh.Height = 0;
-                emmanaduh.Width = 0;
-                emmanaduh.Height = 0;
+                emhp.Visibility = Visibility.Collapsed;
+                mhp.Visibility = Visibility.Collapsed;
+                mmanaduh.Visibility = Visibility.Collapsed;
+                emmanaduh.Visibility = Visibility.Collapsed;
                 parbeszedT.Text = "\t \t Győzelem! :)";
                 tovabb.IsEnabled = true;
-                tovabb.Width = 200;
-                tovabb.Height = 60;
+                tovabb.Visibility = Visibility.Visible;
                 harcvege = true;
                 ellhpT.Text = "Hp:0/200";
                 ixp = xp;
@@ -152,18 +140,13 @@ namespace FPG
             {
                 
                 Gombtuntetes();
-                emhp.Width = 0;
-                emhp.Height = 0;
-                mhp.Width = 0;
-                mhp.Height = 0;
-                mmanaduh.Width = 0;
-                mmanaduh.Height = 0;
-                emmanaduh.Width = 0;
-                emmanaduh.Height = 0;
+                emhp.Visibility = Visibility.Collapsed;
+                mhp.Visibility = Visibility.Collapsed;
+                mmanaduh.Visibility = Visibility.Collapsed;
+                emmanaduh.Visibility = Visibility.Collapsed;
                 parbeszedT.Text = "\t \t Vereség! :(";
                 tovabb.IsEnabled = true;
-                tovabb.Width = 200;
-                tovabb.Height = 60;
+                tovabb.Visibility = Visibility.Visible;
                 harcvege = true;
                 hpT.Text = "Hp:0/200";
                 ixp = xp;
@@ -1190,16 +1173,11 @@ namespace FPG
         }
         public void nevparbeszed()
         {
-            playernev.Width = 0;
-            playernev.Height = 0;
-            ellenfelnev.Width = 0;
-            ellenfelnev.Height = 0;
-            playernev1.Width = 0;
-            playernev1.Height = 0;
-            ellenfelnev1.Width = 0;
-            ellenfelnev1.Height = 0;
-            parbeszedT.Height = 180;
-            parbeszedT.Width = 1252;
+            playernev.Visibility = Visibility.Collapsed;
+            ellenfelnev.Visibility = Visibility.Collapsed;
+            playernev1.Visibility = Visibility.Collapsed;
+            ellenfelnev1.Visibility = Visibility.Collapsed;
+            parbeszedT.Visibility = Visibility.Visible;
         }
         public void statolvasas()
         {
@@ -1234,24 +1212,15 @@ namespace FPG
         {
             //Tovább gombot "eltüntetjük", a többit megidézzük
             tovabb.IsEnabled = false;
-            tovabb.Width = 0;
-            tovabb.Height = 0;
-            vedekezes.Width = 340;
-            vedekezes.Height = 60;
-            tamadas.Width = 340;
-            tamadas.Height = 60;
-            mtamadas.Width = 340;
-            mtamadas.Height = 60;
-            htamadas.Width = 340;
-            htamadas.Height = 60;
-            hpT.Width = 227;
-            hpT.Height = 48;
-            ellhpT.Width = 227;
-            ellhpT.Height = 48;
-            manaduh.Width = 227;
-            manaduh.Height = 48;
-            emanaduh.Width = 227;
-            emanaduh.Height = 48;
+            tovabb.Visibility = Visibility.Collapsed;
+            vedekezes.Visibility = Visibility.Visible;
+            tamadas.Visibility = Visibility.Visible;
+            mtamadas.Visibility = Visibility.Visible;
+            htamadas.Visibility = Visibility.Visible;
+            hpT.Visibility = Visibility.Visible;
+            ellhpT.Visibility = Visibility.Visible;
+            manaduh.Visibility = Visibility.Visible;
+            emanaduh.Visibility = Visibility.Visible;
             hpT.Text = "Hp: 200/200";
             ellhpT.Text = "Hp: 200/200";
             //Minden karakternek saját gombneveket állítunk
@@ -1295,8 +1264,7 @@ namespace FPG
         {
             //A gombok "eltüntetése", csak azért nem alapból "tűnnek el" hogy a szerkesztőben láthatóak legyenek
             Gombtuntetes();
-            parbeszedT.Height = 0;
-            parbeszedT.Width = 0;
+            parbeszedT.Visibility = Visibility.Collapsed;
         }
         private void playernev1_TextChanged(object sender, TextChangedEventArgs e)
         {
