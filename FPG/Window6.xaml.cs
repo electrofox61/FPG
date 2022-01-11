@@ -31,12 +31,12 @@ namespace FPG
 
         private void ListBoxItem_Selected_1(object sender, RoutedEventArgs e)
         {
-            leiras.Content = "Mágus:\n - Körönként kap 10 manát \n - Buborék: 5 manába kerül, 10 védekezést kapsz\n - Tűzgolyó: 15 manába kerül, 10-et sebez, égő effektet ad az ellenfélre, körönként 5 - öket sebez 2 körig\n - Jégcsap: 15 manába kerül, 10-et sebez, ha tűz effekt volt rajta akkor az égést megállítja, és helyette \n +10 sebzést kap \n - Robbanás: 40 manába kerül, 60-at sebez.";
+            leiras.Content = "Mágus:\n - Körönként kap 10 manát \n - Buborék: 5 manába kerül, 10 védekezést kapsz\n - Tűzgolyó: 15 manába kerül, 10-et sebez, égő effektet ad az ellenfélre, körönként 5 - öket sebez 2 körig\n - Jégcsap: 15 manába kerül, 10-et sebez, ha tűz effekt volt rajta akkor az égést megállítja, és helyette \n +10 sebzést kap \n - Robbanás: 40 manába kerül, 60-at sebez";
         }
 
         private void ListBoxItem_Selected_2(object sender, RoutedEventArgs e)
         {
-            leiras.Content = "Druida:\n - Körönként kap 10 manát \n - Teknőspáncél: 10 védekezést kapsz\n - Karmolás: 10-et sebez\n - Gyökércsapda: 20 manába kerül, 10-et sebez, és 'lezárja' az ellenfelet, így nem tud támadni egy körben.\n - Élet növénye: 30 manába kerül, és 15 Hp-t gyógyít.";
+            leiras.Content = "Druida:\n - Körönként kap 10 manát \n - Teknőspáncél: 10 védekezést kapsz\n - Karmolás: 10-et sebez\n - Gyökércsapda: 20 manába kerül, 10-et sebez, és 'lezárja' az ellenfelet, így nem tud támadni egy körben\n - Élet növénye: 30 manába kerül, és 15 Hp-t gyógyít";
         }
 
         private void ListBoxItem_Selected_3(object sender, RoutedEventArgs e)

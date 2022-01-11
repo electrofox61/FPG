@@ -176,17 +176,15 @@
     </Resource>
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="gradient.png" />
+  </ItemGroup>
+  <ItemGroup>
     <Resource Include="FoxyDruid.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="WolfDruid.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="gradient.png" />
+    <Resource Include="WolfDruid.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

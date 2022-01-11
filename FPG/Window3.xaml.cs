@@ -22,6 +22,7 @@ namespace FPG
     {
         //az alap adatok
         //fájlból kiolvasott
+        //Point eger;
         string nev, ellnev;
         int ero, ved, moz, intl, xp, eero, eved, emoz, eintl, exp;
         //számolásokhoz használt
@@ -32,9 +33,10 @@ namespace FPG
         int root, eroot;
         int ihp, eihp, ixp, iexp, imana, iemana, iduh, ieduh;
         int veletlen;
-        int i = 0;
+        //int i = 0;
         int sebzes = 0;
         int dodge, dodger, edodge, edodger;
+
         bool dodged = false, edodged = false;
         int szandek;
         string klassz, eklassz;
@@ -1229,6 +1231,10 @@ namespace FPG
             {
                 case "Harcos":
                     manaduh.Text = "Düh:0/100";
+                    vedekezes.ToolTip = "10 védekezést és 5 dühöt kapsz";
+                    tamadas.ToolTip = "10-et sebez és 20 dühöt kapsz";
+                    mtamadas.ToolTip = "20-at sebez és 30 dühbe kerül";
+                    htamadas.ToolTip = "50-et sebez és 60 dühbe kerül";
                     break;
                 case "Mágus":
                     manaduh.Text = "Mana:0/100";
@@ -1236,6 +1242,10 @@ namespace FPG
                     tamadas.Content = "Tűzgolyó";
                     mtamadas.Content = "Jégcsap";
                     htamadas.Content = "Robbanás";
+                    vedekezes.ToolTip = "5 manába kerül, 10 védekezést kapsz";
+                    tamadas.ToolTip = "15 manába kerül, 10-et sebez, égő effektet ad az ellenfélre, körönként 5 - öket sebez 2 körig";
+                    mtamadas.ToolTip = "5 manába kerül, 10-et sebez, ha tűz effekt volt rajta akkor az égést megállítja, és helyette +10 sebzést kap";
+                    htamadas.ToolTip = "40 manába kerül, 60-at sebez";
                     break;
                 case "Íjász":
                     break;
@@ -1245,6 +1255,10 @@ namespace FPG
                     tamadas.Content = "Karmolás";
                     mtamadas.Content = "Gyökércsapda";
                     htamadas.Content = "Élet növénye";
+                    vedekezes.ToolTip = "10 védekezést kapsz";
+                    tamadas.ToolTip = "10-et sebez";
+                    mtamadas.ToolTip = "20 manába kerül, 10-et sebez, és 'lezárja' az ellenfelet, így nem tud támadni egy körben";
+                    htamadas.ToolTip = "30 manába kerül, és 15 Hp-t gyógyít";
                     break;
             }
             switch (eklassz)
@@ -1605,5 +1619,12 @@ namespace FPG
                 }
             }
         }
+        /*private void vedekezes_MouseEnter(object sender, MouseEventArgs e)
+        {
+            a gombok magyarázata akart lenni amikor rajta volt a kurzor, de egyelőre ToolTip-ként van megadva
+            /*eger = Window1.PointToScreen(Mouse.GetPosition(Window1));
+            magyarazat.Width = eger.X;
+            magyarazat.Height = eger.Y;
+        }*/
     }
 }
