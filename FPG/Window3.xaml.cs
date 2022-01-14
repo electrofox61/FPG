@@ -20,12 +20,12 @@ namespace FPG
     /// </summary>
     public partial class Window3 : Window
     {
-        //az alap adatok
-        //fájlból kiolvasott
+        //A legtöbb változót itt adom meg, hogy tudjam milyen változók léteznek és ne legyen azzal baj hogy egy class-on belül adom meg és nem érem el. Nem feltétlen optimális ugye ez, de itt annyira nem számít.
+        //Csoportokra vannak szedve valamennyire a változók, de nem feltétlen egyértelmű ránézésre
+
         //Point eger;
         string nev, ellnev;
         int ero, ved, moz, intl, xp, eero, eved, emoz, eintl, exp;
-        //számolásokhoz használt
         int hp = 200, ellhp = 200;
         int duh, mana, eduh, emana;
         bool harcvege = false;
@@ -34,9 +34,8 @@ namespace FPG
         int ihp, eihp, ixp, iexp, imana, iemana, iduh, ieduh;
         int veletlen;
         //int i = 0;
-        int sebzes = 0;
+        int sebzes, esebzes, pmanaduh, epmanaduh = 0;
         int dodge, dodger, edodge, edodger;
-
         bool dodged = false, edodged = false;
         int szandek;
         string klassz, eklassz;
@@ -48,6 +47,7 @@ namespace FPG
         }
         public void Gombtuntetes()
         {
+            //Eltüntetjük a harchoz szükséges dolgokat
             vedekezes.Visibility = Visibility.Collapsed;
             vedekezes.Visibility = Visibility.Collapsed;
             tamadas.Visibility = Visibility.Collapsed;
@@ -60,7 +60,8 @@ namespace FPG
         }
         public void GyozelemVereseg()
         {
-            if (ellhp <= 0)
+            //Megnézzük hogy nyert-e valaki, előbb azt hogy a játékos nyert-e, így döntetlennél a játékos nyer
+            if (ellhp <= 0) //ha a játékos nyert
             {
                 
                 Gombtuntetes();
@@ -77,7 +78,7 @@ namespace FPG
                 iexp = exp;
                 xp += 1000;
                 exp += 500;
-                if (xp - ixp >= 1000)
+                if (xp - ixp >= 1000) //szintett lépett-e a játékos
                 {
                     szintl.Text = nev + " szintet lépett!";
                     Random r = new Random();
@@ -98,7 +99,7 @@ namespace FPG
                             break;
                     }
                 }
-                if (exp - iexp >= 1000)
+                if (exp - iexp >= 1000) //szintett lépett-e az ellenfél
                 {
                     eszintl.Text = ellnev + " szintet lépett!";
                     Random r = new Random();
@@ -138,7 +139,7 @@ namespace FPG
                 estat.WriteLine(Convert.ToInt32(exp));
                 estat.Close();
             }
-            else if (hp <= 0)
+            else if (hp <= 0)   //ha az ellenfél nyert
             {
                 
                 Gombtuntetes();
@@ -219,6 +220,7 @@ namespace FPG
         }
         public void manaduhteszt()
         {
+            //ellenőrizzük hogy nem megy a mana vagy a düh 100 felé
             if (duh > 100)
             {
                 duh = 100;
@@ -238,13 +240,14 @@ namespace FPG
         }
         public bool mozgszam()
         {
+            //a mozgékonyság alapján van esélyed hogy "dodgeolod" az ellenfél képességét, ezzel a rendszerrel annyi baj lehet, hogy túl nagy szint esetén 100% a dodge chance
             Random r = new Random();
             dodger = r.Next(0, 201);
             dodge = moz * 10;
             if (dodge > dodger)
             {
                 dodged = true;
-                mhp.Text = $"dodged";
+                mhp.Text = "dodged";
             }
             else
             {
@@ -254,13 +257,14 @@ namespace FPG
         }
         public bool emozgszam()
         {
+            //A dodgeolás, csak az ellenfélnél
             Random r = new Random();
             edodger = r.Next(0, 201);
             edodge = emoz * 10;
             if (edodge > edodger)
             {
                 edodged = true;
-                emhp.Text = $"dodged";
+                emhp.Text = "dodged";
             }
             else
             {
@@ -270,6 +274,7 @@ namespace FPG
         }
         public void kepek()
         {
+            //Beillesztjük a megfelelő képeket karakter szerint
             statolvasas();
             switch (klassz)
             {
@@ -300,8 +305,148 @@ namespace FPG
                     break;
             }
         }
+        public void vedekezni()
+        {
+            //ellenfél védekezés esetén sebződés
+            emozgszam();
+            if (edodged == false)
+            {
+                eihp = ellhp;
+                ellhp -= sebzes - eved;
+                ellhp += 10;
+                if (ellhp > eihp)
+                {
+                    ellhp = eihp;
+                }
+                if (eihp - ellhp > 0)
+                {
+                    emhp.Text = $"-{eihp - ellhp}hp";
+                }
+                else
+                {
+                    emhp.Text = $"+{Math.Abs(eihp - ellhp)}hp";
+                }
+            }
+            ellhpT.Text = "Hp:" + ellhp + "/200";
+        }
+        public void ellsebzodes()
+        {
+            //ellenfél sebződésének kiszámolása
+            emozgszam();
+            if (edodged == false)
+            {
+                eihp = ellhp;
+                ellhp -= sebzes - eved;
+                if (ellhp > eihp)
+                {
+                    ellhp = eihp;
+                }
+                if (eihp - ellhp > 0)
+                {
+                    emhp.Text = $"-{eihp - ellhp}hp";
+                }
+                else
+                {
+                    emhp.Text = $"+{Math.Abs(eihp - ellhp)}hp";
+                }
+            }
+        }
+        public void sebzodes()
+        {
+            //Játékos sebződésének kiszámítása
+            mozgszam();
+            if (dodged == false)
+            {
+                ihp = hp;
+                hp -= esebzes + eero - ved;
+                if (hp > ihp)
+                {
+                    hp = ihp;
+                }
+                if (ihp - hp > 0)
+                {
+                    mhp.Text = $"-{ihp - hp}hp";
+                }
+                else
+                {
+                    mhp.Text = $"+{Math.Abs(ihp - hp)}hp";
+                }
+            }
+            if (eeges > 0)
+            {
+                ihp = hp;
+                hp -= 10 - ved;
+                if (hp > ihp)
+                {
+                    hp = ihp;
+                }
+            }
+        }
+        public void duhvaltozas()
+        {
+            //A játékos dühének változása
+            iduh = duh;
+            duh += pmanaduh + intl;
+            manaduhteszt();
+            if (iduh - duh > 0)
+            {
+                mmanaduh.Text = $"-{iduh - duh}düh";
+            }
+            else
+            {
+                mmanaduh.Text = $"+{Math.Abs(iduh - duh)}düh";
+            }
+        }
+        public void eduhvaltozas()
+        {
+            //Az ellenfél dühének változása
+            ieduh = eduh;
+            eduh += epmanaduh + eintl;
+            manaduhteszt();
+            if (ieduh - eduh > 0)
+            {
+                emmanaduh.Text = $"-{ieduh - eduh}düh";
+            }
+            else
+            {
+                emmanaduh.Text = $"+{Math.Abs(ieduh - eduh)}düh";
+            }
+        }
+        public void manavaltozas()
+        {
+            //A játékos manájának változása
+            imana = mana;
+            mana += pmanaduh + intl;
+            manaduhteszt();
+            if (imana - mana > 0)
+            {
+                mmanaduh.Text = $"-{imana - mana}mana";
+            }
+            else
+            {
+                mmanaduh.Text = $"+{Math.Abs(imana - mana)}mana";
+            }
+        }
+        public void emanavaltozas()
+        {
+            //Az ellenfél manájának változása
+            iemana = emana;
+            emana += epmanaduh + eintl;
+            manaduhteszt();
+            if (iemana - emana > 0)
+            {
+                emmanaduh.Text = $"-{iemana - emana}mana";
+            }
+            else
+            {
+                emmanaduh.Text = $"+{Math.Abs(iemana - emana)}mana";
+            }
+        }
         public void ellenfel()
         {
+            // Ez az egész az ellenfél támadásai, viszont itt van kiszámolva a legtöbb dolog, mint a játékos és az ellenfél sebződése
+            
+            //Ez mondja meg mit fog csinálni az ellenfél. Kicsit érdekesen néz ki, főleg mivel StackOverFlow hibákat kaptam, így át kellett írnom hogy ne tudja újra és újra kiválasztani a manás támadásokat ha nincs manája. (még mindig lenne egyszerűbb megoldás)
             if (Convert.ToString(szandek1.Content) == "")
             {
                 Random r = new Random();
@@ -312,73 +457,26 @@ namespace FPG
                 szandek = Convert.ToInt32(szandek1.Content);
                 szandek1.Content = "";
             }
+            //Az ellenfél támadásai, a legtöbb része el van magyarázva máshol
             switch (szandek)
             {
                 case 1: //vedekezes
                     switch (eklassz)
                     {
                         case "Harcos":
-                            intention.Text = "Védekezés";
-                            emozgszam();
-                            if (edodged == false)
-                            {
-                                eihp = ellhp;
-                                ellhp -= sebzes - eved;
-                                ellhp += 10;
-                                if (ellhp > eihp)   
-                                {
-                                    ellhp = eihp;
-                                }
-                                if (eihp - ellhp > 0)
-                                {
-                                    emhp.Text = $"-{eihp - ellhp}hp";
-                                }
-                                else
-                                {
-                                    emhp.Text = $"+{Math.Abs(eihp- ellhp)}hp";
-                                }
-                            }
-                            ellhpT.Text = "Hp:" + ellhp + "/200";
-                            ieduh = eduh;
-                            eduh += 5 + eintl;
-                            manaduhteszt();
-                            if (ieduh - eduh > 0)
-                            {
-                                emmanaduh.Text = $"-{ieduh - eduh}düh";
-                            }
-                            else
-                            {
-                                emmanaduh.Text = $"+{Math.Abs(ieduh - eduh)}düh";
-                            }
-                            emanaduh.Text = "Düh:" + eduh + "/100";
+                            intention.Text = "Védekezés"; //Elmondja mit csinált az ellenfél
+                            vedekezni();
+                            epmanaduh = 5; //Érték a düh/manaváltozáshoz
+                            eduhvaltozas();
+                            emanaduh.Text = "Düh:" + eduh + "/100"; //A mana frissítése a képernyőn
                             GyozelemVereseg();
-                            break;
+                            break; //Végrement egy támadás, nem kell tovább folytatni
                         case "Mágus":
                             intention.Text = "Buborék";
                             emozgszam();
-                            if (edodged == false)
-                            {
-                                eihp = ellhp;
-                                ellhp -= sebzes - eved;
-                                ellhp += 10;
-                                if (ellhp > eihp)
-                                {
-                                    ellhp = eihp;
-                                }
-                                if (eihp - ellhp > 0)
-                                {
-                                    emhp.Text = $"-{eihp - ellhp}hp";
-                                }
-                                else
-                                {
-                                    emhp.Text = $"+{Math.Abs(eihp- ellhp)}hp";
-                                }
-                            }
-                            ellhpT.Text = "Hp:" + ellhp + "/200";
-                            iemana = emana;
-                            emana += 5 + eintl;
-                            manaduhteszt();
-                            emmanaduh.Text = $"{emana - iemana}mana";
+                            vedekezni();
+                            epmanaduh = 5;
+                            emanavaltozas();
                             emanaduh.Text = "Mana:" + emana + "/100";
                             GyozelemVereseg();
                             break;
@@ -388,37 +486,9 @@ namespace FPG
                             if (root == 0)
                             {
                                 intention.Text = "Teknőspáncél";
-                                emozgszam();
-                                if (edodged == false)
-                                {
-                                    eihp = ellhp;
-                                    ellhp -= sebzes - eved;
-                                    ellhp += 10;
-                                    if (ellhp > eihp)
-                                    {
-                                        ellhp = eihp;
-                                    }
-                                    if (eihp - ellhp > 0)
-                                    {
-                                        emhp.Text = $"-{eihp - ellhp}hp";
-                                    }
-                                    else
-                                    {
-                                        emhp.Text = $"+{Math.Abs(eihp- ellhp)}hp";
-                                    }
-                                }
-                                iemana = emana;
-                                emana += 10 + eintl;
-                                manaduhteszt();
-                                if (iemana - emana > 0)
-                                {
-                                    emmanaduh.Text = $"-{iemana - emana}mana";
-                                }
-                                else
-                                {
-                                    emmanaduh.Text = $"+{Math.Abs(iemana - emana)}mana";
-                                }
-                                ellhpT.Text = "Hp:" + ellhp + "/200";
+                                vedekezni();
+                                epmanaduh = 10;
+                                emanavaltozas();
                                 hpT.Text = "Hp:" + hp + "/200";
                                 emanaduh.Text = "Mana:" + emana + "/100";
                                 GyozelemVereseg();
@@ -427,36 +497,9 @@ namespace FPG
                             {
                                 root -= 1;
                                 intention.Text = "Teknőspáncél";
-                                emozgszam();
-                                if (edodged == false)
-                                {
-                                    eihp = ellhp;
-                                    ellhp -= sebzes - eved;
-                                    if (ellhp > eihp)
-                                    {
-                                        ellhp = eihp;
-                                    }
-                                    if (eihp - ellhp > 0)
-                                    {
-                                        emhp.Text = $"-{eihp - ellhp}hp";
-                                    }
-                                    else
-                                    {
-                                        emhp.Text = $"+{Math.Abs(eihp- ellhp)}hp";
-                                    }
-                                }
-                                iemana = emana;
-                                emana += 10 + eintl;
-                                manaduhteszt();
-                                if (iemana - emana > 0)
-                                {
-                                    emmanaduh.Text = $"-{iemana - emana}mana";
-                                }
-                                else
-                                {
-                                    emmanaduh.Text = $"+{Math.Abs(iemana - emana)}mana";
-                                }
-                                ellhpT.Text = "Hp:" + ellhp + "/200";
+                                vedekezni();
+                                epmanaduh = 10;
+                                emanavaltozas();
                                 hpT.Text = "Hp:" + hp + "/200";
                                 emanaduh.Text = "Mana:" + emana + "/100";
                                 GyozelemVereseg();
@@ -469,55 +512,13 @@ namespace FPG
                     {
                         case "Harcos":
                             intention.Text = "Sima Támadás";
-                            emozgszam();
-                            if (edodged == false)
-                            {
-                                eihp = ellhp;
-                                ellhp -= sebzes - eved;
-                                if (ellhp > eihp)
-                                {
-                                    ellhp = eihp;
-                                }
-                                if (eihp - ellhp > 0)
-                                {
-                                    emhp.Text = $"-{eihp - ellhp}hp";
-                                }
-                                else
-                                {
-                                    emhp.Text = $"+{Math.Abs(eihp- ellhp)}hp";
-                                }
-                            }
-                            mozgszam();
-                            if (dodged == false)
-                            {
-                                ihp = hp;
-                                hp -= 10 + eero - ved;
-                                if (hp > ihp)
-                                {
-                                    hp = ihp;
-                                }
-                                if (ihp - hp > 0)
-                                {
-                                    mhp.Text = $"-{ihp - hp}hp";
-                                }
-                                else
-                                {
-                                    mhp.Text = $"+{Math.Abs(ihp- hp)}hp";
-                                }
-                            }
+                            ellsebzodes();
                             ellhpT.Text = "Hp:" + ellhp + "/200";
+                            esebzes = 10;
+                            sebzodes();
                             hpT.Text = "Hp:" + hp + "/200";
-                            ieduh = eduh;
-                            eduh += 20 + eintl;
-                            manaduhteszt();
-                            if (ieduh - eduh > 0)
-                            {
-                                emmanaduh.Text = $"-{ieduh - eduh}düh";
-                            }
-                            else
-                            {
-                                emmanaduh.Text = $"+{Math.Abs(ieduh - eduh)}düh";
-                            }
+                            epmanaduh = 20;
+                            eduhvaltozas();
                             emanaduh.Text = "Düh:" + eduh + "/100";
                             GyozelemVereseg();
                             break;
@@ -525,65 +526,14 @@ namespace FPG
                             if (emana >= 15)
                             {
                                 intention.Text = "Tűzgolyó";
-                                emozgszam();
-                                if (edodged == false)
-                                {
-                                    eihp = ellhp;
-                                    ellhp -= sebzes - eved;
-                                    if (ellhp > eihp)
-                                    {
-                                        ellhp = eihp;
-                                    }
-                                    if (eihp - ellhp > 0)
-                                    {
-                                        emhp.Text = $"-{eihp - ellhp}hp";
-                                    }
-                                    else
-                                    {
-                                        emhp.Text = $"+{Math.Abs(eihp- ellhp)}hp";
-                                    }
-                                }
-                                mozgszam();
-                                if (dodged == false)
-                                {
-                                    ihp = hp;
-                                    hp -= 10 + eero - ved;
-                                    if (hp > ihp)
-                                    {
-                                        hp = ihp;
-                                    }
-                                    if (ihp - hp > 0)
-                                    {
-                                        mhp.Text = $"-{ihp - hp}hp";
-                                    }
-                                    else
-                                    {
-                                        mhp.Text = $"+{Math.Abs(ihp- hp)}hp";
-                                    }
-                                }
-                                eeges += 2;
-                                if (eeges > 0)
-                                {
-                                    ihp = hp;
-                                    hp -= 10 - ved;
-                                    if (hp > ihp)
-                                    {
-                                        hp = ihp;
-                                    }
-                                }
-                                iemana = emana;
-                                emana -= 5 - eintl;
-                                manaduhteszt();
-                                if (iemana - emana > 0)
-                                {
-                                    emmanaduh.Text = $"-{iemana - emana}mana";
-                                }
-                                else
-                                {
-                                    emmanaduh.Text = $"+{Math.Abs(iemana - emana)}mana";
-                                }
+                                ellsebzodes();
                                 ellhpT.Text = "Hp:" + ellhp + "/200";
+                                esebzes = 10;
+                                sebzodes();
                                 hpT.Text = "Hp:" + hp + "/200";
+                                eeges += 2;
+                                epmanaduh = -5;
+                                emanavaltozas();
                                 emanaduh.Text = "Mana:" + emana + "/100";
                                 GyozelemVereseg();
                             }
@@ -600,55 +550,13 @@ namespace FPG
                             if (root == 0)
                             {
                                 intention.Text = "Karmolás";
-                                emozgszam();
-                                if (edodged == false)
-                                {
-                                    eihp = ellhp;
-                                    ellhp -= sebzes - eved;
-                                    if (ellhp > eihp)
-                                    {
-                                        ellhp = eihp;
-                                    }
-                                    if (eihp - ellhp > 0)
-                                    {
-                                        emhp.Text = $"-{eihp - ellhp}hp";
-                                    }
-                                    else
-                                    {
-                                        emhp.Text = $"+{Math.Abs(eihp- ellhp)}hp";
-                                    }
-                                }
-                                mozgszam();
-                                if (dodged == false)
-                                {
-                                    ihp = hp;
-                                    hp -= 10 + eero - ved;
-                                    if (hp > ihp)
-                                    {
-                                        hp = ihp;
-                                    }
-                                    if (ihp - hp > 0)
-                                    {
-                                        mhp.Text = $"-{ihp - hp}hp";
-                                    }
-                                    else
-                                    {
-                                        mhp.Text = $"+{Math.Abs(ihp- hp)}hp";
-                                    }
-                                }
-                                iemana = emana;
-                                emana += 10 + eintl;
-                                manaduhteszt();
-                                if (iemana - emana > 0)
-                                {
-                                    emmanaduh.Text = $"-{iemana - emana}mana";
-                                }
-                                else
-                                {
-                                    emmanaduh.Text = $"+{Math.Abs(iemana - emana)}mana";
-                                }
+                                ellsebzodes();
                                 ellhpT.Text = "Hp:" + ellhp + "/200";
+                                esebzes = 10;
+                                sebzodes();
                                 hpT.Text = "Hp:" + hp + "/200";
+                                epmanaduh = 10;
+                                emanavaltozas();
                                 emanaduh.Text = "Mana:" + emana + "/100";
                                 GyozelemVereseg();
                             }
@@ -656,37 +564,10 @@ namespace FPG
                             {
                                 root -= 1;
                                 intention.Text = "Karmolás";
-                                emozgszam();
-                                if (edodged == false)
-                                {
-                                    eihp = ellhp;
-                                    ellhp -= sebzes - eved;
-                                    if (ellhp > eihp)
-                                    {
-                                        ellhp = eihp;
-                                    }
-                                    if (eihp - ellhp > 0)
-                                    {
-                                        emhp.Text = $"-{eihp - ellhp}hp";
-                                    }
-                                    else
-                                    {
-                                        emhp.Text = $"+{Math.Abs(eihp- ellhp)}hp";
-                                    }
-                                }
-                                iemana = emana;
-                                emana += 10 + eintl;
-                                manaduhteszt();
-                                if (iemana - emana > 0)
-                                {
-                                    emmanaduh.Text = $"-{iemana - emana}mana";
-                                }
-                                else
-                                {
-                                    emmanaduh.Text = $"+{Math.Abs(iemana - emana)}mana";
-                                }
+                                ellsebzodes();
                                 ellhpT.Text = "Hp:" + ellhp + "/200";
-                                hpT.Text = "Hp:" + hp + "/200";
+                                epmanaduh = 10;
+                                emanavaltozas();
                                 emanaduh.Text = "Mana:" + emana + "/100";
                                 GyozelemVereseg();
                             }
@@ -700,55 +581,13 @@ namespace FPG
                             intention.Text = "Lefejelés";
                             if (eduh >= 30)
                             {
-                                emozgszam();
-                                if (edodged == false)
-                                {
-                                    eihp = ellhp;
-                                    ellhp -= sebzes - eved;
-                                    if (ellhp > eihp)
-                                    {
-                                        ellhp = eihp;
-                                    }
-                                    if (eihp - ellhp > 0)
-                                    {
-                                        emhp.Text = $"-{eihp - ellhp}hp";
-                                    }
-                                    else
-                                    {
-                                        emhp.Text = $"+{Math.Abs(eihp - ellhp)}hp";
-                                    }
-                                }
-                                mozgszam();
-                                if (dodged == false)
-                                {
-                                    ihp = hp;
-                                    hp -= 20 + eero - ved;
-                                    if (hp > ihp)
-                                    {
-                                        hp = ihp;
-                                    }
-                                    if (ihp - hp > 0)
-                                    {
-                                        mhp.Text = $"-{ihp - hp}hp";
-                                    }
-                                    else
-                                    {
-                                        mhp.Text = $"+{Math.Abs(ihp - hp)}hp";
-                                    }
-                                }
+                                ellsebzodes();
                                 ellhpT.Text = "Hp:" + ellhp + "/200";
+                                esebzes = 20;
+                                sebzodes();
                                 hpT.Text = "Hp:" + hp + "/200";
-                                ieduh = eduh;
-                                eduh -= 30 - eintl;
-                                manaduhteszt();
-                                if (ieduh - eduh > 0)
-                                {
-                                    emmanaduh.Text = $"-{ieduh - eduh}düh";
-                                }
-                                else
-                                {
-                                    emmanaduh.Text = $"+{Math.Abs(ieduh - eduh)}düh";
-                                }
+                                epmanaduh = -30;
+                                emanavaltozas();
                                 emanaduh.Text = "Düh:" + eduh + "/100";
                                 GyozelemVereseg();
                             }
@@ -763,66 +602,14 @@ namespace FPG
                             if (emana >= 15)
                             {
                                 intention.Text = "Jégcsap";
-                                emozgszam();
-                                if (edodged == false)
-                                {
-                                    eihp = ellhp;
-                                    ellhp -= sebzes - eved;
-                                    if (ellhp > eihp)
-                                    {
-                                        ellhp = eihp;
-                                    }
-                                    if (eihp - ellhp > 0)
-                                    {
-                                        emhp.Text = $"-{eihp - ellhp}hp";
-                                    }
-                                    else
-                                    {
-                                        emhp.Text = $"+{Math.Abs(eihp - ellhp)}hp";
-                                    }
-                                }
-                                mozgszam();
-                                if (dodged == false)
-                                {
-                                    ihp = hp;
-                                    hp -= 10 + eero - ved;
-                                    if (hp > ihp)
-                                    {
-                                        hp = ihp;
-                                    }
-                                    if (ihp - hp > 0)
-                                    {
-                                        mhp.Text = $"-{ihp - hp}hp";
-                                    }
-                                    else
-                                    {
-                                        mhp.Text = $"+{Math.Abs(ihp - hp)}hp";
-                                    }
-                                }
-                                eeges += 2;
-                                if (eeges > 0)
-                                {
-                                    eeges = 0;
-                                    ihp = hp;
-                                    hp -= 5 - ved;
-                                    if (hp > ihp)
-                                    {
-                                        hp = ihp;
-                                    }
-                                }
-                                iemana = emana;
-                                emana -= 5 - eintl;
-                                manaduhteszt();
-                                if (iemana - emana > 0)
-                                {
-                                    emmanaduh.Text = $"-{iemana - emana}mana";
-                                }
-                                else
-                                {
-                                    emmanaduh.Text = $"+{Math.Abs(iemana - emana)}mana";
-                                }
+                                ellsebzodes();
                                 ellhpT.Text = "Hp:" + ellhp + "/200";
+                                eeges += 2;
+                                esebzes = 10;
+                                sebzodes();
                                 hpT.Text = "Hp:" + hp + "/200";
+                                epmanaduh = -5;
+                                emanavaltozas();
                                 emanaduh.Text = "Mana:" + emana + "/100";
                                 GyozelemVereseg();
                             }
@@ -841,56 +628,14 @@ namespace FPG
                                 if (root == 0)
                                 {
                                     intention.Text = "Gyökércsapda";
-                                    emozgszam();
-                                    if (edodged == false)
-                                    {
-                                        eihp = ellhp;
-                                        ellhp -= sebzes - eved;
-                                        if (ellhp > eihp)
-                                        {
-                                            ellhp = eihp;
-                                        }
-                                        if (eihp - ellhp > 0)
-                                        {
-                                            emhp.Text = $"-{eihp - ellhp}hp";
-                                        }
-                                        else
-                                        {
-                                            emhp.Text = $"+{Math.Abs(eihp - ellhp)}hp";
-                                        }
-                                    }
-                                    mozgszam();
-                                    if (dodged == false)
-                                    {
-                                        ihp = hp;
-                                        hp -= 10 + eero - ved;
-                                        if (hp > ihp)
-                                        {
-                                            hp = ihp;
-                                        }
-                                        if (ihp - hp > 0)
-                                        {
-                                            mhp.Text = $"-{ihp - hp}hp";
-                                        }
-                                        else
-                                        {
-                                            mhp.Text = $"+{Math.Abs(ihp - hp)}hp";
-                                        }
-                                    }
-                                    eroot += 1;
-                                    iemana = emana;
-                                    emana -= 10 - eintl;
-                                    manaduhteszt();
-                                    if (iemana - emana > 0)
-                                    {
-                                        emmanaduh.Text = $"-{iemana - emana}mana";
-                                    }
-                                    else
-                                    {
-                                        emmanaduh.Text = $"+{Math.Abs(iemana - emana)}mana";
-                                    }
+                                    ellsebzodes();
                                     ellhpT.Text = "Hp:" + ellhp + "/200";
+                                    esebzes = 10;
+                                    sebzodes();
                                     hpT.Text = "Hp:" + hp + "/200";
+                                    eroot += 1;
+                                    epmanaduh = -10;
+                                    emanavaltozas();
                                     emanaduh.Text = "Mana:" + emana + "/100";
                                     GyozelemVereseg();
                                 }
@@ -898,37 +643,10 @@ namespace FPG
                                 {
                                     root -= 1;
                                     intention.Text = "Gyökércsapda";
-                                    emozgszam();
-                                    if (edodged == false)
-                                    {
-                                        eihp = ellhp;
-                                        ellhp -= sebzes - eved;
-                                        if (ellhp > eihp)
-                                        {
-                                            ellhp = eihp;
-                                        }
-                                        if (eihp - ellhp > 0)
-                                        {
-                                            emhp.Text = $"-{eihp - ellhp}hp";
-                                        }
-                                        else
-                                        {
-                                            emhp.Text = $"+{Math.Abs(eihp - ellhp)}hp";
-                                        }
-                                    }
-                                    iemana = emana;
-                                    emana += 10 + eintl;
-                                    manaduhteszt();
-                                    if (iemana - emana > 0)
-                                    {
-                                        emmanaduh.Text = $"-{iemana - emana}mana";
-                                    }
-                                    else
-                                    {
-                                        emmanaduh.Text = $"+{Math.Abs(iemana - emana)}mana";
-                                    }
+                                    ellsebzodes();
                                     ellhpT.Text = "Hp:" + ellhp + "/200";
-                                    hpT.Text = "Hp:" + hp + "/200";
+                                    epmanaduh = 10;
+                                    emanavaltozas();
                                     emanaduh.Text = "Mana:" + emana + "/100";
                                     GyozelemVereseg();
                                 }
@@ -949,55 +667,13 @@ namespace FPG
                             intention.Text = "Rókapörgés";
                             if (eduh >= 60)
                             {
-                                emozgszam();
-                                if (edodged == false)
-                                {
-                                    eihp = ellhp;
-                                    ellhp -= sebzes - eved;
-                                    if (ellhp > eihp)
-                                    {
-                                        ellhp = eihp;
-                                    }
-                                    if (eihp - ellhp > 0)
-                                    {
-                                        emhp.Text = $"-{eihp - ellhp}hp";
-                                    }
-                                    else
-                                    {
-                                        emhp.Text = $"+{Math.Abs(eihp - ellhp)}hp";
-                                    }
-                                }
-                                mozgszam();
-                                if (edodged == false)
-                                {
-                                    ihp = hp;
-                                    hp -= 40 + eero - ved;
-                                    if (hp > ihp)
-                                    {
-                                        hp = ihp;
-                                    }
-                                    if (ihp - hp > 0)
-                                    {
-                                        mhp.Text = $"-{ihp - hp}hp";
-                                    }
-                                    else
-                                    {
-                                        mhp.Text = $"+{Math.Abs(ihp - hp)}hp";
-                                    }
-                                }
+                                ellsebzodes();
                                 ellhpT.Text = "Hp:" + ellhp + "/200";
+                                esebzes = 40;
+                                sebzodes();
                                 hpT.Text = "Hp:" + hp + "/200";
-                                ieduh = eduh;
-                                eduh -= 60 - eintl;
-                                manaduhteszt();
-                                if (ieduh - eduh > 0)
-                                {
-                                    emmanaduh.Text = $"-{ieduh - eduh}düh";
-                                }
-                                else
-                                {
-                                    emmanaduh.Text = $"+{Math.Abs(ieduh - eduh)}düh";
-                                }
+                                epmanaduh = -60;
+                                emanavaltozas();
                                 emanaduh.Text = "Düh:" + eduh + "/100";
                                 GyozelemVereseg();
                             }
@@ -1012,64 +688,13 @@ namespace FPG
                             if (emana >= 40)
                             {
                                 intention.Text = "Robbanás";
-                                emozgszam();
-                                if (edodged == false)
-                                {
-                                    eihp = ellhp;
-                                    ellhp -= sebzes - eved;
-                                    if (ellhp > eihp)
-                                    {
-                                        ellhp = eihp;
-                                    }
-                                    if (eihp - ellhp > 0)
-                                    {
-                                        emhp.Text = $"-{eihp - ellhp}hp";
-                                    }
-                                    else
-                                    {
-                                        emhp.Text = $"+{Math.Abs(eihp - ellhp)}hp";
-                                    }
-                                }
-                                mozgszam();
-                                if (dodged == false)
-                                {
-                                    ihp = hp;
-                                    hp -= 60 - ved;
-                                    if (hp > ihp)
-                                    {
-                                        hp = ihp;
-                                    }
-                                    if (ihp - hp > 0)
-                                    {
-                                        mhp.Text = $"-{ihp - hp}hp";
-                                    }
-                                    else
-                                    {
-                                        mhp.Text = $"+{Math.Abs(ihp - hp)}hp";
-                                    }
-                                }
-                                if (eeges > 0)
-                                {
-                                    eeges -= 1;
-                                    ihp = hp;
-                                    hp -= 5 - ved;
-                                    if (hp > ihp)
-                                    {
-                                        hp = ihp;
-                                    }
-                                }
-                                iemana = emana;
-                                emana -= 30 - eintl;
-                                manaduhteszt();
-                                if (iemana - emana > 0)
-                                {
-                                    emmanaduh.Text = $"-{iemana - emana}mana";
-                                }
-                                else
-                                {
-                                    emmanaduh.Text = $"+{Math.Abs(iemana - emana)}mana";
-                                }
+                                ellsebzodes();
+                                ellhpT.Text = "Hp:" + ellhp + "/200";
+                                esebzes = 10;
+                                sebzodes();
                                 hpT.Text = "Hp:" + hp + "/200";
+                                epmanaduh = -30;
+                                emanavaltozas();
                                 emanaduh.Text = "Mana:" + emana + "/100";
                                 GyozelemVereseg();
                             }
@@ -1088,38 +713,11 @@ namespace FPG
                                 if (root == 0)
                                 {
                                     intention.Text = "Élet növénye";
-                                    emozgszam();
-                                    if (edodged == false)
-                                    {
-                                        eihp = ellhp;
-                                        ellhp -= sebzes - eved;
-                                        if (ellhp > eihp)
-                                        {
-                                            ellhp = eihp;
-                                        }
-                                        if (eihp - ellhp > 0)
-                                        {
-                                            emhp.Text = $"-{eihp - ellhp}hp";
-                                        }
-                                        else
-                                        {
-                                            emhp.Text = $"+{Math.Abs(eihp - ellhp)}hp";
-                                        }
-                                    }
-                                    eroot += 1;
-                                    iemana = emana;
-                                    emana -= 20 - eintl;
-                                    manaduhteszt();
-                                    if (iemana - emana > 0)
-                                    {
-                                        emmanaduh.Text = $"-{iemana - emana}mana";
-                                    }
-                                    else
-                                    {
-                                        emmanaduh.Text = $"+{Math.Abs(iemana - emana)}mana";
-                                    }
+                                    ellsebzodes();
+                                    ellhp += 15;
                                     ellhpT.Text = "Hp:" + ellhp + "/200";
-                                    hpT.Text = "Hp:" + hp + "/200";
+                                    epmanaduh = -20;
+                                    emanavaltozas();
                                     emanaduh.Text = "Mana:" + emana + "/100";
                                     GyozelemVereseg();
                                 }
@@ -1127,37 +725,10 @@ namespace FPG
                                 {
                                     root -= 1;
                                     intention.Text = "Élet növénye";
-                                    emozgszam();
-                                    if (edodged == false)
-                                    {
-                                        eihp = ellhp;
-                                        ellhp -= sebzes - eved;
-                                        if (ellhp > eihp)
-                                        {
-                                            ellhp = eihp;
-                                        }
-                                        if (eihp - ellhp > 0)
-                                        {
-                                            emhp.Text = $"-{eihp - ellhp}hp";
-                                        }
-                                        else
-                                        {
-                                            emhp.Text = $"+{Math.Abs(eihp - ellhp)}hp";
-                                        }
-                                    }
-                                    iemana = emana;
-                                    emana += 10 + eintl;
-                                    manaduhteszt();
-                                    if (iemana - emana > 0)
-                                    {
-                                        emmanaduh.Text = $"-{iemana - emana}mana";
-                                    }
-                                    else
-                                    {
-                                        emmanaduh.Text = $"+{Math.Abs(iemana - emana)}mana";
-                                    }
+                                    ellsebzodes();
                                     ellhpT.Text = "Hp:" + ellhp + "/200";
-                                    hpT.Text = "Hp:" + hp + "/200";
+                                    epmanaduh = 10;
+                                    emanavaltozas();
                                     emanaduh.Text = "Mana:" + emana + "/100";
                                     GyozelemVereseg();
                                 }
@@ -1175,6 +746,7 @@ namespace FPG
         }
         public void nevparbeszed()
         {
+            //Ez menne át a névadásról a párbeszédre, mivel kivettem a párbeszédet (pontosabban meg se csináltam jól) így egyből a harc miatt kell ezeket eltüntetni
             playernev.Visibility = Visibility.Collapsed;
             ellenfelnev.Visibility = Visibility.Collapsed;
             playernev1.Visibility = Visibility.Collapsed;
@@ -1183,32 +755,25 @@ namespace FPG
         }
         public void statolvasas()
         {
-            try
-            {
-                StreamReader stats = new StreamReader(nev + ".txt");
-                nev = stats.ReadLine();
-                ero = Convert.ToInt32(stats.ReadLine());
-                ved = Convert.ToInt32(stats.ReadLine());
-                moz = Convert.ToInt32(stats.ReadLine());
-                intl = Convert.ToInt32(stats.ReadLine());
-                klassz = stats.ReadLine() ;
-                xp = Convert.ToInt32(stats.ReadLine());
-                stats.Close();
-                StreamReader estat = new StreamReader(ellnev + ".txt");
-                ellnev = estat.ReadLine();
-                eero = Convert.ToInt32(estat.ReadLine());
-                eved = Convert.ToInt32(estat.ReadLine());
-                emoz = Convert.ToInt32(estat.ReadLine());
-                eintl = Convert.ToInt32(estat.ReadLine());
-                eklassz = estat.ReadLine();
-                exp = Convert.ToInt32(estat.ReadLine());
-                estat.Close();
-            }
-            catch (System.StackOverflowException)
-            {
-
-                MessageBox.Show("wtf");
-            }
+            //A két karakter statjainak beolvasása
+            StreamReader stats = new StreamReader(nev + ".txt");
+            nev = stats.ReadLine();
+            ero = Convert.ToInt32(stats.ReadLine());
+            ved = Convert.ToInt32(stats.ReadLine());
+            moz = Convert.ToInt32(stats.ReadLine());
+            intl = Convert.ToInt32(stats.ReadLine());
+            klassz = stats.ReadLine() ;
+            xp = Convert.ToInt32(stats.ReadLine());
+            stats.Close();
+            StreamReader estat = new StreamReader(ellnev + ".txt");
+            ellnev = estat.ReadLine();
+            eero = Convert.ToInt32(estat.ReadLine());
+            eved = Convert.ToInt32(estat.ReadLine());
+            emoz = Convert.ToInt32(estat.ReadLine());
+            eintl = Convert.ToInt32(estat.ReadLine());
+            eklassz = estat.ReadLine();
+            exp = Convert.ToInt32(estat.ReadLine());
+            estat.Close();
         }
         public void harckezdet()
         {
@@ -1223,9 +788,10 @@ namespace FPG
             ellhpT.Visibility = Visibility.Visible;
             manaduh.Visibility = Visibility.Visible;
             emanaduh.Visibility = Visibility.Visible;
+            //A hpk értékét megadjuk
             hpT.Text = "Hp: 200/200";
             ellhpT.Text = "Hp: 200/200";
-            //Minden karakternek saját gombneveket állítunk
+            //Minden karakternek saját gombneveket állítunk, megállapítjuk hogy mana kell vagy düh, és ToolTip-et állítunk
             statolvasas();
             switch (klassz)
             {
@@ -1282,16 +848,20 @@ namespace FPG
         }
         private void playernev1_TextChanged(object sender, TextChangedEventArgs e)
         {
+            //Játékosnév megadása
             nev = playernev1.Text;
             pnev.Text = playernev1.Text;
         }
         private void ellenfelnev1_TextChanged(object sender, TextChangedEventArgs e)
         {
+            //Ellenfélnév megadása
             ellnev = ellenfelnev1.Text;
             enev.Text = ellenfelnev1.Text;
         }
         private void tovabb_Click(object sender, RoutedEventArgs e)
         {
+            //Van itt olyan amit kivettem, de még jegyzetben van
+            //Több dolgot csinál, elsőnek is tovább megy a karaktermegadásból
             if (nev == "" || ellnev == "")
             {
                 hibaT.Text = "Hiba: meg kell adnod a neveiket a karaktereknek!!";
@@ -1307,7 +877,7 @@ namespace FPG
                     kepek();
                     nevparbeszed();
                     //}
-                    if (harcvege == true)
+                    if (harcvege == true) //ha vége van a harcnak akkor bezárja és behozza a főmenüt
                     {
                         MainWindow subWindow = new MainWindow();
                         subWindow.Show();
@@ -1329,7 +899,7 @@ namespace FPG
                     harckezdet();
                     //}
                 }
-                catch (FileNotFoundException)
+                catch (FileNotFoundException) //Azért van ugye hogy csak létező karaktert lehessen megadni, viszont vettem már olyat észre hogy nem működik elsőre és továbbmegy valamiért
                 {
                     hibaT.Text = "Hiba: nincs ilyen karakter!";
                 }
@@ -1341,34 +911,16 @@ namespace FPG
             switch (klassz)
             {
                 case "Harcos":
-                    iduh = duh;
-                    duh += 5 + intl;
-                    manaduhteszt();
-                    if (iduh - duh > 0)
-                    {
-                        mmanaduh.Text = $"-{iduh - duh}düh";
-                    }
-                    else
-                    {
-                        mmanaduh.Text = $"+{Math.Abs(iduh - duh)}düh";
-                    }
+                    pmanaduh = 5;
+                    duhvaltozas();
                     manaduh.Text = "Düh:" + duh + "/100";
                     sebzes = 0;
                     GyozelemVereseg();
                     ellenfel();
                     break;
                 case "Mágus":
-                    imana = mana;
-                    mana += 5 + intl;
-                    manaduhteszt();
-                    if (imana - mana > 0)
-                    {
-                        mmanaduh.Text = $"-{imana - mana}mana";
-                    }
-                    else
-                    {
-                        mmanaduh.Text = $"+{Math.Abs(imana - mana)}mana";
-                    }
+                    pmanaduh = 5;
+                    manavaltozas();
                     manaduh.Text = "Mana:" + mana + "/100";
                     sebzes = 0;
                     GyozelemVereseg();
@@ -1379,17 +931,8 @@ namespace FPG
                 case "Druida":
                     if (eroot == 0)
                     {
-                        imana = mana;
-                        mana += 5 + intl;
-                        manaduhteszt();
-                        if (imana - mana > 0)
-                        {
-                            mmanaduh.Text = $"-{imana - mana}mana";
-                        }
-                        else
-                        {
-                            mmanaduh.Text = $"+{Math.Abs(imana - mana)}mana";
-                        }
+                        pmanaduh = 5;
+                        manavaltozas();
                         manaduh.Text = "Mana:" + mana + "/100";
                         sebzes = 0;
                         GyozelemVereseg();
@@ -1409,17 +952,8 @@ namespace FPG
             if (klassz=="Harcos")
             {
                 sebzes = 10 + ero;
-                iduh = duh;
-                duh += 20 + intl;
-                manaduhteszt();
-                if (iduh - duh > 0)
-                {
-                    mmanaduh.Text = $"-{iduh - duh}düh";
-                }
-                else
-                {
-                    mmanaduh.Text = $"+{Math.Abs(iduh - duh)}düh";
-                }
+                pmanaduh = 20;
+                duhvaltozas();
                 manaduh.Text = "Düh:" + duh + "/100";
                 GyozelemVereseg();
                 ellenfel();
@@ -1433,17 +967,8 @@ namespace FPG
                     sebzes += 5;
                     eges -= 1;
                 }
-                imana = mana;
-                mana -= 5 - intl;
-                manaduhteszt();
-                if (imana - mana > 0)
-                {
-                    mmanaduh.Text = $"-{imana - mana}mana";
-                }
-                else
-                {
-                    mmanaduh.Text = $"+{Math.Abs(imana - mana)}mana";
-                }
+                pmanaduh = -5;
+                manavaltozas();
                 manaduh.Text = "Mana:" + mana + "/100";
                 GyozelemVereseg();
                 ellenfel();
@@ -1453,17 +978,8 @@ namespace FPG
                 if (eroot == 0)
                 {
                     sebzes = 10 + ero;
-                    imana = mana;
-                    mana += 10 + intl;
-                    manaduhteszt();
-                    if (imana - mana > 0)
-                    {
-                        mmanaduh.Text = $"-{imana - mana}mana";
-                    }
-                    else
-                    {
-                        mmanaduh.Text = $"+{Math.Abs(imana - mana)}mana";
-                    }
+                    pmanaduh = 10;
+                    manavaltozas();
                     manaduh.Text = "Mana:" + mana + "/100";
                     GyozelemVereseg();
                     ellenfel();
@@ -1481,17 +997,8 @@ namespace FPG
             if (klassz == "Harcos" && duh >= 30)
             {
                 sebzes = 20 + ero;
-                iduh = duh;
-                duh -= 30 - intl;
-                manaduhteszt();
-                if (iduh - duh > 0)
-                {
-                    mmanaduh.Text = $"-{iduh - duh}düh";
-                }
-                else
-                {
-                    mmanaduh.Text = $"+{Math.Abs(iduh - duh)}düh";
-                }
+                pmanaduh = -30;
+                duhvaltozas();
                 manaduh.Text = "Düh:" + duh + "/100";
                 GyozelemVereseg();
                 ellenfel();
@@ -1499,17 +1006,8 @@ namespace FPG
             if (klassz == "Mágus" && mana >= 15)
             {
                 sebzes = 10 + ero;
-                imana = mana;
-                mana -= 5 - intl;
-                manaduhteszt();
-                if (imana - mana > 0)
-                {
-                    mmanaduh.Text = $"-{imana - mana}mana";
-                }
-                else
-                {
-                    mmanaduh.Text = $"+{Math.Abs(imana - mana)}mana";
-                }
+                pmanaduh = -5;
+                manavaltozas();
                 if (eges > 0)
                 {
                     eges = 0;
@@ -1525,17 +1023,8 @@ namespace FPG
                 {
                     sebzes = 10 + ero;
                     root = 1;
-                    imana = mana;
-                    mana -= 10 - intl;
-                    manaduhteszt();
-                    if (imana - mana > 0)
-                    {
-                        mmanaduh.Text = $"-{imana - mana}mana";
-                    }
-                    else
-                    {
-                        mmanaduh.Text = $"+{Math.Abs(imana - mana)}mana";
-                    }
+                    pmanaduh = -10;
+                    manavaltozas();
                     manaduh.Text = "Mana:" + mana + "/100";
                     GyozelemVereseg();
                     ellenfel();
@@ -1553,17 +1042,8 @@ namespace FPG
             if (klassz == "Harcos" && duh >= 60)
             {
                 sebzes = 50 + ero;
-                iduh = duh;
-                duh -= 60 - intl;
-                manaduhteszt();
-                if (iduh - duh > 0)
-                {
-                    mmanaduh.Text = $"-{iduh - duh}düh";
-                }
-                else
-                {
-                    mmanaduh.Text = $"+{Math.Abs(iduh - duh)}düh";
-                }
+                pmanaduh = -60;
+                duhvaltozas();
                 manaduh.Text = "Düh:" + duh + "/100";
                 GyozelemVereseg();
                 ellenfel();
@@ -1571,17 +1051,8 @@ namespace FPG
             if (klassz == "Mágus" && mana >= 40)
             {
                 sebzes = 60 + ero;
-                imana = mana;
-                mana -= 40 - intl;
-                manaduhteszt();
-                if (imana - mana > 0)
-                {
-                    mmanaduh.Text = $"-{imana - mana}mana";
-                }
-                else
-                {
-                    mmanaduh.Text = $"+{Math.Abs(imana - mana)}mana";
-                }
+                pmanaduh = -40;
+                manavaltozas();
                 if (eges > 0)
                 {
                     sebzes += 5;
@@ -1596,17 +1067,8 @@ namespace FPG
                 if (eroot == 0)
                 {
                     hp += 15;
-                    imana = mana;
-                    mana -= 20 - intl;
-                    manaduhteszt();
-                    if (imana - mana > 0)
-                    {
-                        mmanaduh.Text = $"-{imana - mana}mana";
-                    }
-                    else
-                    {
-                        mmanaduh.Text = $"+{Math.Abs(imana - mana)}mana";
-                    }
+                    pmanaduh = -20;
+                    manavaltozas();
                     hpT.Text = "Hp:" + hp + "/200";
                     manaduh.Text = "Mana:" + mana + "/100";
                     GyozelemVereseg();
@@ -1621,7 +1083,8 @@ namespace FPG
         }
         /*private void vedekezes_MouseEnter(object sender, MouseEventArgs e)
         {
-            a gombok magyarázata akart lenni amikor rajta volt a kurzor, de egyelőre ToolTip-ként van megadva
+            A gombok magyarázata akart lenni amikor rajta volt a kurzor, de egyelőre ToolTip-ként van megadva
+            Újragondolva valószínűleg nem kell az egér pozíciója, elég lesz 4 előre megadott Label vagy Textblock amik a gombok mellett vannak, de egyelőre nem tettem bele
             /*eger = Window1.PointToScreen(Mouse.GetPosition(Window1));
             magyarazat.Width = eger.X;
             magyarazat.Height = eger.Y;
